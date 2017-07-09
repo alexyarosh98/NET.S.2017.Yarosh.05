@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace AlgorithmsAndPolynomials.NUnitTests
 {
     [TestFixture]
-    public class AlgorithmsTests
+    public class DoubleExtensionsTests
     {
         [TestCase(-255.255, ExpectedResult = "1100000001101111111010000010100011110101110000101000111101011100")]
         [TestCase(255.255, ExpectedResult = "0100000001101111111010000010100011110101110000101000111101011100")]
@@ -22,10 +22,10 @@ namespace AlgorithmsAndPolynomials.NUnitTests
         [TestCase(double.PositiveInfinity,ExpectedResult = "0111111111101111111111111111111111111111111111111111111111111111")]
         [TestCase(double.NegativeInfinity,ExpectedResult = "1111111111101111111111111111111111111111111111111111111111111111")]
         [TestCase(double.NaN,ExpectedResult = "011111111111")]
-        public string ToBinaryView_PositiveAndNegativeNoneInfitityAnd_ZeroValues_StringWithBinaryViewOfDouble(
+        public string ToBinaryView_PositiveAndNegativeNoneInfitityAndZeroValues_StringWithBinaryViewOfDouble(
             double number)
         {
-            return number.ToBinariView();
+            return number.ToBinaryView();
         }
 
     }

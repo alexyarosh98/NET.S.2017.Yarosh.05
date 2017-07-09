@@ -1,20 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace AlgorithmsAndPolynomials
 {
-    public static class Algorithms
+    public static class DoubleExtension
     {
         private const string MAXMANTICA = "1111111111111111111111111111111111111111111111111111";
+        
         /// <summary>
         /// Representation a double number in a binary view
         /// </summary>
         /// <param name="number">users number</param>
         /// <returns>string representation of number</returns>
-        public static string ToBinariView(this double number)
+        public static string ToBinaryView(this double number)
         {
             if (number != number || double.IsInfinity(number) || number == double.MaxValue || number == double.MinValue||number==double.Epsilon)
             {
