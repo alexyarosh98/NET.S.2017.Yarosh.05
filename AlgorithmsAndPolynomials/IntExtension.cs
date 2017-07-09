@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AlgorithmsAndPolynomials
 {
-    class IntExtension
+    public class IntExtension
     {
         #region Not binary alrorithms
 
@@ -21,6 +21,7 @@ namespace AlgorithmsAndPolynomials
         /// <returns>greatest common divisor</returns>
         public static int GreatestCommonDevisor(int number1, int number2)
         {
+            CheckValuesContainsMinValue(number1, number2);
             if (number1==0)return number2;
             if (number2==0) return number1;
             
@@ -57,6 +58,7 @@ namespace AlgorithmsAndPolynomials
         /// <returns>greatest common divisor</returns>
         public static int GreatestCommonDevisor(params int[] numbers)
         {
+            CheckValuesContainsMinValue(numbers);
             if (numbers==null) throw new ArgumentException($"{nameof(numbers)} is null");
             if (numbers.Length == 0) return 0;
 
@@ -116,6 +118,7 @@ namespace AlgorithmsAndPolynomials
         /// <returns>gretest common divisor</returns>
         public static int BinaryAlgotithmGreatestCommonDevisor(int number1, int number2)
         {
+            CheckValuesContainsMinValue(number1, number2);
             if (number1 == 0) return number2;
             if (number2 == 0) return number1;
 
@@ -166,6 +169,7 @@ namespace AlgorithmsAndPolynomials
          /// <returns>greatest common divisor</returns>
         public static int BinaryAlgotithmGreatestCommonDevisor(params int[] numbers)
         {
+            CheckValuesContainsMinValue(numbers);
             if (numbers==null) throw new ArgumentException($"{nameof(numbers)} is null");
             if (numbers.Length == 0) return 0;
 
@@ -219,6 +223,17 @@ namespace AlgorithmsAndPolynomials
         }
 
         #endregion
+
+        private static void CheckValuesContainsMinValue(int number1, int number2)
+        {
+            if (number1 == int.MinValue || number2 == int.MinValue)
+                throw new ArgumentException("Numbers can't be min value of integer");
+        }
+        private static void CheckValuesContainsMinValue(params int[] numbers)
+        {
+            if(numbers.Contains(int.MinValue)) throw  new ArgumentException("Numbers can't be min value of integer");
+        }
+
     }
 
 }
