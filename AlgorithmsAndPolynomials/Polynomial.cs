@@ -17,13 +17,18 @@ namespace AlgorithmsAndPolynomials
             Coefficients = new double[coef.Length];
             Array.Copy(coef, Coefficients, coef.Length);
         }
+
+        public Polynomial(double number)
+        {
+            Coefficients=new double[]{number};
+        }
         override public string ToString()
         {
             StringBuilder res = new StringBuilder();
-
-            for (int i = 1; i < Coefficients.Length; i++)
+            if (Coefficients.Length == 1) return $"0*x={Coefficients[0]}";
+            for (int i = Coefficients.Length - 1; i >= 1; i--)
             {
-                res.Append(String.Format("{3} {0}{1}*x^{2}", Coefficients[i] > 0 ? "+" : "-", Math.Abs(Coefficients[i]), (i), i == 1 ? Coefficients[0] + " = " : ""));
+                res.Append(String.Format("{0} {1}*x^{2} {3}", Coefficients[i] > 0 ? "+" : "-", Math.Abs(Coefficients[i]), (i), i == 1 ? "= " + Coefficients[0] : ""));
             }
             return res.ToString();
 
@@ -31,6 +36,8 @@ namespace AlgorithmsAndPolynomials
         public static Polynomial operator +(Polynomial obj1, Polynomial obj2)
         {
             if (obj1 == null || obj2 == null) throw new ArgumentException();
+            if(obj1.Coefficients.Length==0) return new Polynomial(obj2.Coefficients);
+            if(obj2.Coefficients.Length==0) return new Polynomial(obj1.Coefficients);
 
             int maxLength = Math.Max(obj1.Coefficients.Length, obj2.Coefficients.Length);
             double[] coeff = new double[maxLength];
@@ -57,6 +64,8 @@ namespace AlgorithmsAndPolynomials
         }
         public static Polynomial operator +(Polynomial obj, double value)
         {
+            if(obj.Coefficients.Length==0) return new Polynomial(value);
+
             double[] coeff = new double[obj.Coefficients.Length];
             Array.Copy(obj.Coefficients, coeff, obj.Coefficients.Length);
             coeff[0] += value;
@@ -67,6 +76,13 @@ namespace AlgorithmsAndPolynomials
 
         public static Polynomial operator -(Polynomial obj1, Polynomial obj2)
         {
+            if (obj1.Coefficients.Length == 0)
+            {
+                double[] coeff=new double[obj2.Coefficients.Length];
+                for (int i = 0; i < obj2.Coefficients.Length; i++) coeff[i] = -obj2.Coefficients[i];
+                return new Polynomial(coeff);
+            }
+            if(obj2.Coefficients.Length==0) return  new Polynomial(obj1.Coefficients);
 
             if (obj1.Coefficients.Length > obj2.Coefficients.Length)
             {
