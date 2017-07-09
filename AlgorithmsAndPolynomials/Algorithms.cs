@@ -43,8 +43,10 @@ namespace AlgorithmsAndPolynomials
 
             wholePart = BinaryViewOfWholePart(Math.Truncate(number));
             string fractional = BinaryViewOfFraction(number % 1);
+
             if (!wholePart.StartsWith("0")) res.Append(wholePart.Substring(1));
             res.Append(fractional);
+
             while (res.Length < 52)
             {
                 res.Append("0");
