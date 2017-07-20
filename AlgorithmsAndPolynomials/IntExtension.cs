@@ -56,20 +56,7 @@ namespace AlgorithmsAndPolynomials
         /// <param name="numbers">An array of numbers</param>
         /// <exception cref="ArgumentException">numberst must be not null</exception>
         /// <returns>greatest common divisor</returns>
-        public static int GreatestCommonDevisor(params int[] numbers)
-        {
-            CheckValuesContainsMinValue(numbers);
-            if (numbers==null) throw new ArgumentException($"{nameof(numbers)} is null");
-            if (numbers.Length == 0) return 0;
-
-            int result = numbers[0];
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                result = GreatestCommonDevisor(result, numbers[i]);
-            }
-
-            return result;
-        }
+        public static int GreatestCommonDevisor(params int[] numbers) => GreaterCommonDivisorV2(GreatestCommonDevisor, numbers);
         /// <summary>
         /// Simple Euclid alrorithms to find the greatest common divisor
         /// </summary>
@@ -91,7 +78,9 @@ namespace AlgorithmsAndPolynomials
         /// <param name="number2">second number</param>
         /// <param name="number3">thied number</param>
         /// <returns>greatest common divisor</returns>
-        public static int GreatestCommonDevisor(int number1, int number2, int number3)=>GreatestCommonDevisor(GreatestCommonDevisor(number1,number2),number3);
+        public static int GreatestCommonDevisor(int number1, int number2, int number3)
+            => GreaterCommonDivisorV2(GreatestCommonDevisor, number1, number2, number3);
+            // public static int GreatestCommonDevisor(int number1, int number2, int number3)=>GreatestCommonDevisor(GreatestCommonDevisor(number1,number2),number3);
         /// <summary>
         /// Simple Euclid alrorithms to find the greatest common divisor
         /// </summary>
@@ -167,20 +156,7 @@ namespace AlgorithmsAndPolynomials
          /// <param name="numbers">array of numbers</param>
          /// <exception cref="ArgumentException">array must be not null</exception>
          /// <returns>greatest common divisor</returns>
-        public static int BinaryAlgotithmGreatestCommonDevisor(params int[] numbers)
-        {
-            CheckValuesContainsMinValue(numbers);
-            if (numbers==null) throw new ArgumentException($"{nameof(numbers)} is null");
-            if (numbers.Length == 0) return 0;
-
-            int result = numbers[0];
-            for (int i = 1; i < numbers.Length; i++)
-            {
-                result = BinaryAlgotithmGreatestCommonDevisor(result, numbers[i]);
-            }
-
-            return result;
-        }
+        public static int BinaryAlgotithmGreatestCommonDevisor(params int[] numbers) => GreaterCommonDivisorV2(BinaryAlgotithmGreatestCommonDevisor, numbers);
         /// <summary>
         /// Binary Euclid algorithm to find greatest common divisor
         /// </summary>
@@ -203,7 +179,9 @@ namespace AlgorithmsAndPolynomials
         /// <param name="number2">second number</param>
         /// <param name="number3">third number</param>
         /// <returns>greatest common divisor</returns>
-        public static int BinaryAlgotithmGreatestCommonDevisor(int number1, int number2, int number3) => BinaryAlgotithmGreatestCommonDevisor(BinaryAlgotithmGreatestCommonDevisor(number1, number2), number3);
+        public static int BinaryAlgotithmGreatestCommonDevisor(int number1, int number2, int number3)
+           => GreaterCommonDivisorV2(BinaryAlgotithmGreatestCommonDevisor, number1, number2, number3);
+       // public static int BinaryAlgotithmGreatestCommonDevisor(int number1, int number2, int number3) => BinaryAlgotithmGreatestCommonDevisor(BinaryAlgotithmGreatestCommonDevisor(number1, number2), number3);
         /// <summary>
         /// Binary Euclid algorithm to find greatest common divisor
         /// </summary>
@@ -224,6 +202,20 @@ namespace AlgorithmsAndPolynomials
 
         #endregion
 
+        private static int GreaterCommonDivisorV2(Func<int, int, int> m, int number1, int number2, int number3) => m(m(number1, number2), number3);
+        private static int GreaterCommonDivisorV2(Func<int, int, int> m, int[] arr)
+        {
+            if (ReferenceEquals(arr, null)) throw new ArgumentNullException($"{nameof(arr)} is null");
+            if (arr.Length == 0) return 0;
+
+            int result = arr[0];
+            for (int i = 1; i < arr.Length; i++)
+            {
+                result = m(result, arr[i]);
+            }
+
+            return result;
+        }
         private static void CheckValuesContainsMinValue(int number1, int number2)
         {
             if (number1 == int.MinValue || number2 == int.MinValue)
